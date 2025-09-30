@@ -1,0 +1,200 @@
+/* --- Pengaturan Dasar & Font --- */
+:root {
+    --font-heading: 'Pacifico', cursive;
+    --font-body: 'Montserrat', sans-serif;
+    --color-primary: #005a8d;
+    --color-secondary: #0077b6;
+    --color-bg-1: #a0e9ff;
+    --color-bg-2: #caf0f8;
+}
+
+body {
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    color: #333;
+    /* Latar Belakang Gradasi Animasi */
+    background: linear-gradient(45deg, var(--color-bg-1), var(--color-bg-2));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Gaya Tiket Pembuka --- */
+#ticket-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: opacity 0.8s ease;
+}
+
+.ticket-card {
+    background-color: #fffcf2;
+    width: 320px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 1px solid #ddd;
+    text-align: center;
+    transform: scale(0.9);
+    animation: popIn 1s ease-out forwards;
+}
+
+.ticket-header {
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.ticket-header h2 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--color-primary);
+    margin: 0;
+}
+.ticket-header p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.ticket-body {
+    line-height: 1.6;
+}
+.ticket-body h3 {
+    margin: 0 0 10px;
+    font-size: 1em;
+}
+
+.ticket-footer {
+    border-top: 2px dashed #ccc;
+    padding-top: 15px;
+    margin-top: 15px;
+    font-weight: 700;
+    color: var(--color-secondary);
+    animation: pulse 2s infinite;
+}
+
+/* --- Konten Utama & Animasi Staggered --- */
+.container {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+}
+
+.anim-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1.5s forwards;
+}
+/* Delay animasi agar muncul satu per satu */
+h1.anim-item { animation-delay: 0.5s; }
+p.tanggal.anim-item { animation-delay: 0.8s; }
+.birthday-photo.anim-item { animation-delay: 1.1s; }
+.ucapan p.anim-item:nth-child(1) { animation-delay: 1.4s; }
+.ucapan p.anim-item:nth-child(2) { animation-delay: 1.7s; }
+.ucapan p.anim-item:nth-child(3) { animation-delay: 2.0s; }
+
+h1 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 2.8em;
+}
+.birthday-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin: 20px 0;
+}
+
+/* --- Perbaikan Animasi Kereta --- */
+.train-animation {
+    position: absolute;
+    bottom: 10px;
+    font-size: 2.5em;
+    white-space: nowrap;
+    /* Mulai dari luar layar kanan, bergerak ke kiri */
+    animation: moveTrain 20s linear infinite;
+    right: -20%; /* Mulai dari posisi luar layar */
+}
+
+@keyframes moveTrain {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* Bergerak melintasi seluruh lebar layar ditambah posisinya sendiri */
+        transform: translateX(calc(-100vw - 100%));
+    }
+}
+
+/* --- Animasi Konfeti --- */
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+}
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    opacity: 0;
+    animation: fall 5s linear infinite;
+}
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* --- Keyframes Animasi Lainnya --- */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
